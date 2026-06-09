@@ -1,0 +1,54 @@
+# Helix DS — Cursor Rules
+# Design System de Praxys para el ecosistema farmacéutico
+# Diseñador: Emilio Carrozzino
+
+## Stack
+- React + Vite
+- Íconos: @phosphor-icons/react (weight: regular por defecto, bold para énfasis)
+- Tokens: importar siempre desde src/tokens/helixTokens.js
+- NO usar Tailwind, Bootstrap ni ningún framework CSS externo
+- Estilos: inline styles con tokens de Helix, o CSS modules si la complejidad lo requiere
+
+## Reglas de tokens
+- SIEMPRE usar tokens semánticos (HelixColors.actionPrimaryDefault)
+- NUNCA hardcodear colores, espaciados ni tipografía (#157BB5, 14px, etc.)
+- NUNCA usar HelixPrimitives directamente en componentes
+- Importar solo lo que se usa: import { HelixColors, HelixSpacing } from '../tokens/helixTokens'
+
+## Componentes
+- Font: Figtree (cargar desde Google Fonts en index.html)
+- Radius default: HelixRadius.componentMd (8px)
+- Todos los componentes tienen variantes: seguir la nomenclatura de Figma
+- Estados obligatorios: default, hover, focus, disabled
+- Íconos de Phosphor: tamaño 20px para UI (iconControl), 24px para navegación (iconHeading)
+
+## Nomenclatura
+- Componentes: PascalCase (HelixButton, HelixTextField)
+- Props de variante: igual que en Figma (variant="primary", size="md", appearance="standard")
+- Archivos: kebab-case (helix-button.jsx, helix-text-field.jsx)
+- Carpeta de componentes: src/components/helix/
+
+## Estructura de carpetas
+src/
+├── tokens/
+│   └── helixTokens.js        ← fuente de verdad de tokens
+├── components/
+│   └── helix/                ← todos los componentes de Helix
+└── screens/                  ← pantallas de prototipo
+
+## Contexto del DS
+Helix es el design system cross-producto de Praxys.
+Cubre 6+ productos para el ecosistema farmacéutico.
+Los componentes viven en components-core.fig en Figma.
+La fuente de verdad de tokens es foundations.fig.
+Tres capas: Primitivos → Semánticos → Componente.
+
+## Variantes de HelixButton
+- variant: "primary" | "destructive" | "featured" | "subtle"
+- size: "sm" (32px) | "md" (40px) | "lg" (48px)
+- Horizontal padding: sm=12px, md=16px, lg=24px
+- Font: sm/md=14px semibold, lg=16px semibold
+- Icon size: sm=16px (bold weight), md/lg=20px (regular weight)
+- Gap icon-label: sm=4px, md/lg=8px
+- Focus ring: 2px outline, color borderFocusPrimary (#AAD7FA), offset 2px
+- Disabled: opacity inherited via disabled tokens, cursor not-allowed
