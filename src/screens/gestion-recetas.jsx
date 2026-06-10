@@ -10,7 +10,6 @@ import {
   Plus,
   Printer,
 } from '@phosphor-icons/react';
-import logoPraxys from '../assets/logo-praxys.svg';
 import { HelixButton } from '../components/helix/helix-button';
 import {
   HelixBadge,
@@ -111,9 +110,8 @@ export function GestionRecetas() {
 
         {/* Inner bar */}
         <div style={{ display: 'flex', flex: 1, alignItems: 'center', gap: HelixSpacing.gapInlineSm, minWidth: 0 }}>
-          {/* Left: logo + badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: HelixSpacing.paddingComponentMd, flexShrink: 0 }}>
-            <img src={logoPraxys} alt="Praxys" style={{ height: 16, width: 'auto' }} />
+          {/* Left: badge */}
+          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <HelixBadge label="Conexión Plus Farmacias" status="info" icon />
           </div>
           {/* Middle spacer */}
