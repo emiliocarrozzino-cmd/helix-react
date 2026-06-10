@@ -18,6 +18,7 @@ import {
   HelixFileCard,
   HelixIconButton,
   HelixInfoPill,
+  HelixScrollArea,
   HelixSelectField,
   HelixSideNavItem,
   HelixTabs,
@@ -148,67 +149,65 @@ export function GestionRecetas() {
             borderRight: `${HelixBorderWidth.thin}px solid ${HelixColors.borderSubtle}`,
           }}
         >
-          {/* Page header */}
-          <div
-            style={{
-              padding: HelixSpacing.paddingComponentLg,
-              borderBottom: `${HelixBorderWidth.thin}px solid ${HelixColors.borderSubtle}`,
-            }}
-          >
+          <HelixScrollArea style={{ flex: 1, minHeight: 0 }}>
+            {/* Page header — scrolls with content */}
+            <div
+              style={{
+                padding: HelixSpacing.paddingComponentLg,
+                borderBottom: `${HelixBorderWidth.thin}px solid ${HelixColors.borderSubtle}`,
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  gap: HelixSpacing.paddingComponentLg,
+                }}
+              >
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h1 style={{ ...HelixTypography.headingLg, color: HelixColors.textPrimary, margin: 0 }}>
+                    Gestión de Recetas
+                  </h1>
+                  <p style={{ ...HelixTypography.bodyLg, color: HelixColors.textTertiary, margin: 0 }}>
+                    Gestiona, revisa y valida trámites
+                  </p>
+                </div>
+                <HelixButton
+                  variant="primary"
+                  size="sm"
+                  leftIcon={(p) => <Plus {...p} />}
+                  style={{ boxShadow: HelixShadow.sm }}
+                >
+                  Nueva Solicitud
+                </HelixButton>
+              </div>
+            </div>
+
+            {/* Filters + cards */}
             <div
               style={{
                 display: 'flex',
-                alignItems: 'flex-end',
+                flexDirection: 'column',
                 gap: HelixSpacing.paddingComponentLg,
+                padding: HelixSpacing.paddingComponentLg,
               }}
             >
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <h1 style={{ ...HelixTypography.headingLg, color: HelixColors.textPrimary, margin: 0 }}>
-                  Gestión de Recetas
-                </h1>
-                <p style={{ ...HelixTypography.bodyLg, color: HelixColors.textTertiary, margin: 0 }}>
-                  Gestiona, revisa y valida trámites
-                </p>
+              <div style={{ display: 'flex', gap: HelixSpacing.gapInlineSm, flexWrap: 'wrap' }}>
+                <HelixSelectField label="Obra Social" chipLabel="IAPOS" dropdownIcon={CaretDown} />
+                <HelixSelectField label="Vista" chipLabel="Todos los tramites (150 días)" dropdownIcon={CaretDown} />
               </div>
-              <HelixButton
-                variant="primary"
-                size="sm"
-                leftIcon={(p) => <Plus {...p} />}
-                style={{ boxShadow: HelixShadow.sm }}
-              >
-                Nueva Solicitud
-              </HelixButton>
-            </div>
-          </div>
 
-          {/* Filters + cards */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              flex: 1,
-              gap: HelixSpacing.paddingComponentLg,
-              paddingTop: HelixSpacing.paddingComponentLg,
-              paddingLeft: HelixSpacing.paddingComponentLg,
-              paddingRight: HelixSpacing.paddingComponentLg,
-              overflowY: 'auto',
-            }}
-          >
-            <div style={{ display: 'flex', gap: HelixSpacing.gapInlineSm, flexWrap: 'wrap' }}>
-              <HelixSelectField label="Obra Social" chipLabel="IAPOS" dropdownIcon={CaretDown} />
-              <HelixSelectField label="Vista" chipLabel="Todos los tramites (150 días)" dropdownIcon={CaretDown} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: HelixSpacing.gapInlineSm }}>
+                {Array.from({ length: CARD_COUNT }, (_, i) => (
+                  <HelixCardList
+                    key={i}
+                    selected={selectedCard === i}
+                    onSelect={() => setSelectedCard(i)}
+                  />
+                ))}
+              </div>
             </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: HelixSpacing.gapInlineSm }}>
-              {Array.from({ length: CARD_COUNT }, (_, i) => (
-                <HelixCardList
-                  key={i}
-                  selected={selectedCard === i}
-                  onSelect={() => setSelectedCard(i)}
-                />
-              ))}
-            </div>
-          </div>
+          </HelixScrollArea>
         </section>
 
         {/* Right panel — detail */}
@@ -227,6 +226,7 @@ export function GestionRecetas() {
               display: 'flex',
               flexDirection: 'column',
               flex: 1,
+              minHeight: 0,
               backgroundColor: HelixColors.fillSurface,
               border: `${HelixBorderWidth.thin}px solid ${HelixColors.borderSubtle}`,
               borderRadius: HelixRadius.component2xl,
@@ -292,45 +292,45 @@ export function GestionRecetas() {
             </div>
 
             {/* Tabs + content */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                flex: 1,
-                minHeight: 0,
-                gap: HelixSpacing.paddingComponentMd,
-                padding: HelixSpacing.paddingComponentMd,
-                overflowY: 'auto',
-              }}
-            >
-              <HelixTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
+            <HelixScrollArea style={{ flex: 1, minHeight: 0 }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: HelixSpacing.paddingComponentMd,
+                  padding: HelixSpacing.paddingComponentMd,
+                }}
+              >
+                <HelixTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
 
-              {activeTab === 'documentacion' && (
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: HelixSpacing.gapInlineSm,
-                    padding: HelixSpacing.paddingComponentLg,
-                    backgroundColor: HelixColors.surfacePage,
-                    border: `${HelixBorderWidth.thin}px solid ${HelixColors.borderSubtle}`,
-                    borderRadius: HelixRadius.componentLg,
-                  }}
-                >
-                  <div style={{ display: 'flex', gap: HelixSpacing.gapInlineSm }}>
-                    <HelixFileCard {...FILES[0]} />
-                    <HelixFileCard {...FILES[1]} />
+                {activeTab === 'documentacion' && (
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: HelixSpacing.gapInlineSm,
+                      padding: HelixSpacing.paddingComponentLg,
+                      backgroundColor: HelixColors.surfacePage,
+                      border: `${HelixBorderWidth.thin}px solid ${HelixColors.borderSubtle}`,
+                      borderRadius: HelixRadius.componentLg,
+                    }}
+                  >
+                    <div style={{ display: 'flex', gap: HelixSpacing.gapInlineSm }}>
+                      <HelixFileCard {...FILES[0]} />
+                      <HelixFileCard {...FILES[1]} />
+                    </div>
+                    <div style={{ display: 'flex', gap: HelixSpacing.gapInlineSm }}>
+                      <HelixFileCard {...FILES[2]} />
+                      <HelixFileCard {...FILES[3]} />
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', gap: HelixSpacing.gapInlineSm }}>
-                    <HelixFileCard {...FILES[2]} />
-                    <HelixFileCard {...FILES[3]} />
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            </HelixScrollArea>
           </div>
         </section>
       </div>
+      <style>{`.helix-no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
     </div>
   );
 }
