@@ -10,9 +10,9 @@ import {
   Plus,
   Printer,
 } from '@phosphor-icons/react';
-import { HelixButton } from '../components/helix/helix-button';
 import {
   HelixBadge,
+  HelixButton,
   HelixCardList,
   HelixDetailField,
   HelixFileCard,
@@ -21,7 +21,7 @@ import {
   HelixSelectField,
   HelixSideNavItem,
   HelixTabs,
-} from './gestion-recetas-components';
+} from '../components/helix';
 import {
   HelixBorderWidth,
   HelixColors,

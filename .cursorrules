@@ -1,54 +1,157 @@
 # Helix DS — Cursor Rules
 # Design System de Praxys para el ecosistema farmacéutico
-# Diseñador: Emilio Carrozzino
+# Diseñador: Emilio Carrozzino | v2.2
 
 ## Stack
-- React + Vite
-- Íconos: @phosphor-icons/react (weight: regular por defecto, bold para énfasis)
+- React + Vite (JavaScript, NO TypeScript)
+- Íconos: @phosphor-icons/react
+  - weight "bold" en size sm (16px)
+  - weight "regular" en size md/lg (20px)
 - Tokens: importar siempre desde src/tokens/helixTokens.js
-- NO usar Tailwind, Bootstrap ni ningún framework CSS externo
-- Estilos: inline styles con tokens de Helix, o CSS modules si la complejidad lo requiere
+- Estilos: inline styles con tokens Helix. NO Tailwind, NO CSS modules salvo complejidad extrema.
 
 ## Reglas de tokens
-- SIEMPRE usar tokens semánticos (HelixColors.actionPrimaryDefault)
-- NUNCA hardcodear colores, espaciados ni tipografía (#157BB5, 14px, etc.)
-- NUNCA usar HelixPrimitives directamente en componentes
-- Importar solo lo que se usa: import { HelixColors, HelixSpacing } from '../tokens/helixTokens'
+- SIEMPRE usar tokens semánticos: HelixColors.actionPrimaryDefault, HelixSpacing.paddingComponentLg, etc.
+- NUNCA hardcodear colores (#157BB5), espaciados (16px), radios ni tipografía.
+- NUNCA usar HelixPrimitives directamente en componentes.
+- Importar solo lo necesario: import { HelixColors, HelixSpacing } from '../tokens/helixTokens'
 
-## Componentes
-- Font: Figtree (cargar desde Google Fonts en index.html)
-- Radius default: HelixRadius.componentMd (8px)
-- Todos los componentes tienen variantes: seguir la nomenclatura de Figma
-- Estados obligatorios: default, hover, focus, disabled
-- Íconos de Phosphor: tamaño 20px para UI (iconControl), 24px para navegación (iconHeading)
-
-## Nomenclatura
-- Componentes: PascalCase (HelixButton, HelixTextField)
-- Props de variante: igual que en Figma (variant="primary", size="md", appearance="standard")
-- Archivos: kebab-case (helix-button.jsx, helix-text-field.jsx)
-- Carpeta de componentes: src/components/helix/
+## Importar componentes
+Siempre importar desde el barrel:
+  import { HelixButton, HelixBadge, HelixScrollArea } from '../components/helix'
 
 ## Estructura de carpetas
 src/
-├── tokens/
-│   └── helixTokens.js        ← fuente de verdad de tokens
+├── assets/               ← logos y recursos estáticos
 ├── components/
-│   └── helix/                ← todos los componentes de Helix
-└── screens/                  ← pantallas de prototipo
+│   └── helix/            ← todos los componentes Helix
+│       ├── index.js      ← barrel export (usar este para importar)
+│       ├── helix-button.jsx
+│       ├── helix-badge.jsx
+│       ├── helix-card-list.jsx
+│       ├── helix-chip.jsx
+│       ├── helix-detail-field.jsx
+│       ├── helix-file-card.jsx
+│       ├── helix-icon-button.jsx
+│       ├── helix-radio.jsx
+│       ├── helix-scroll-area.jsx
+│       ├── helix-select-field.jsx
+│       ├── helix-side-nav.jsx
+│       └── helix-tabs.jsx
+├── ilustration/          ← SVGs de ilustración (pdf, doc, jpg, png, mp4, zip)
+├── screens/              ← pantallas de prototipo (1 archivo por pantalla)
+└── tokens/
+    └── helixTokens.js    ← fuente de verdad de tokens
 
-## Contexto del DS
-Helix es el design system cross-producto de Praxys.
-Cubre 6+ productos para el ecosistema farmacéutico.
-Los componentes viven en components-core.fig en Figma.
-La fuente de verdad de tokens es foundations.fig.
-Tres capas: Primitivos → Semánticos → Componente.
+## Layouts de pantalla
+Patrón estándar para pantallas full-viewport:
+  <div style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden' }}>
+    <header style={{ flexShrink: 0, height: 56 }}>  {/* TopNav */}
+    <div style={{ display:'flex', flex:1, minHeight:0 }}>
+      <nav style={{ flexShrink: 0, width: 64 }}>    {/* SideNav */}
+      <section style={{ flex:1, display:'flex', flexDirection:'column' }}>  {/* Panel */}
+        <HelixScrollArea style={{ flex:1, minHeight:0 }}>
+          {/* contenido */}
+        </HelixScrollArea>
+      </section>
+    </div>
+  </div>
 
-## Variantes de HelixButton
-- variant: "primary" | "destructive" | "featured" | "subtle"
-- size: "sm" (32px) | "md" (40px) | "lg" (48px)
-- Horizontal padding: sm=12px, md=16px, lg=24px
-- Font: sm/md=14px semibold, lg=16px semibold
-- Icon size: sm=16px (bold weight), md/lg=20px (regular weight)
-- Gap icon-label: sm=4px, md/lg=8px
-- Focus ring: 2px outline, color borderFocusPrimary (#AAD7FA), offset 2px
-- Disabled: opacity inherited via disabled tokens, cursor not-allowed
+Agregar al final del JSX raíz:
+  <style>{`.helix-no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+
+## Componentes disponibles
+
+### HelixButton
+Variantes: "primary" | "destructive" | "secondary" | "subtle"
+Tamaños: "sm" (32px) | "md" (40px) | "lg" (48px)
+Props: variant, size, disabled, loading, leftIcon, rightIcon, noFocusRing, onClick, style, aria-label
+- leftIcon/rightIcon: render prop (p) => <Icon {...p} />
+- noFocusRing: true para botones ícono sin ring visible
+- Gradiente de borde en estado default (primary, destructive, secondary)
+- Radius: componentLg (12px)
+
+### HelixBadge
+Etiqueta de estado de 20px de alto.
+Props: label, status ("success"|"warning"|"error"|"info"), icon (bool)
+Uso: <HelixBadge label="Autorizado" status="success" />
+
+### HelixBadgeStatus
+Indicador de proceso de 20px.
+Props: label, appearance ("done"|"progress")
+Uso: <HelixBadgeStatus label="Enviado" appearance="done" />
+
+### HelixChip
+Chip de valor seleccionado, 20px de alto. Borde componentSm (4px).
+Props: label, onRemove (opcional — si se pasa muestra X)
+Uso: <HelixChip label="IAPOS" />
+
+### HelixSelectField
+Campo de selección con label, chip(s) y caret. Altura controlMd (40px).
+Props: label, chipLabel, dropdownIcon (componente Phosphor)
+Uso: <HelixSelectField label="Obra Social" chipLabel="IAPOS" dropdownIcon={CaretDown} />
+
+### HelixRadio
+Radio button visual de 20×20px.
+Props: selected (bool)
+Uso: <HelixRadio selected={true} />
+
+### HelixDetailField
+Par label/valor en panel de detalle. Trunca con ellipsis.
+Props: label, value, style
+Uso: <HelixDetailField label="Paciente:" value="García, Juan" />
+
+### HelixFileCard
+Tarjeta de documento adjunto con ilustración SVG.
+Props: title, description, format ("pdf"|"doc"|"jpg"|"png"|"mp4"|"zip")
+Uso: <HelixFileCard title="Receta.pdf" description="2.4 MB" format="pdf" />
+
+### HelixCardList
+Tarjeta seleccionable de lista. Radio + badges + 4 campos de metadata.
+Props: label, content1, content2, content3, content4, selected (bool), onSelect
+Uso: <HelixCardList label="Trámite 434" selected={true} onSelect={() => {}} />
+
+### HelixTabs
+Tab bar estilo pill. Tab activa = HelixButton primary sm.
+Props: tabs ([{ id, label }]), activeTab (id), onTabChange ((id) => void)
+Uso: <HelixTabs tabs={TABS} activeTab={activeTab} onTabChange={setActiveTab} />
+
+### HelixIconButton
+Botón de ícono solo, sin texto, sin focus ring. Subtle sm.
+Props: icon (componente Phosphor), aria-label (obligatorio), onClick, style
+Uso: <HelixIconButton icon={DotsThreeVertical} aria-label="Opciones" />
+Para fondo transparente: style={{ backgroundColor: 'transparent' }}
+
+### HelixSideNavItem
+Ítem del rail de navegación lateral, 40×40px.
+Props: icon (componente Phosphor), active (bool)
+Uso: <HelixSideNavItem icon={FileText} active={true} />
+
+### HelixScrollArea
+Área de scroll con scrollbar custom Helix. Oculta el scrollbar nativo.
+Track: 8px, pill, fondo glass. Thumb: fillNeutralDefault, pill, mín 24px.
+Props: children, style (ej. { flex: 1, minHeight: 0 })
+Requiere CSS webkit en la pantalla raíz (ver sección Layouts).
+Uso: <HelixScrollArea style={{ flex: 1, minHeight: 0 }}>{children}</HelixScrollArea>
+
+## Tokens clave de referencia
+Colores de acción:
+  actionPrimaryDefault: #157BB5  | actionPrimaryBorderGradient: linear-gradient(270deg,#157BB5,#4297D0,#157BB5)
+  actionDestructiveDefault: #DC2837
+  actionSecondaryDefault: #3FA876
+  actionSubtleDefault: #FFFFFF
+
+Superficies:
+  surfacePage: #F4F5F6   fillSurface: #FFFFFF   surfaceRaised: #FFFFFF
+
+Bordes:
+  borderSubtle: #E5E8EA  borderDefault: #CCD2D5  borderFocusPrimary: #AAD7FA
+
+Alturas de control:
+  controlSm: 32px  controlMd: 40px  controlLg: 48px
+
+Radios:
+  componentSm: 4px  componentMd: 8px  componentLg: 12px  componentXl: 16px  componentPill: 9999px
+
+Íconos:
+  iconInline: 16px  iconControl: 20px  iconHeading: 24px  iconXs: 12px
