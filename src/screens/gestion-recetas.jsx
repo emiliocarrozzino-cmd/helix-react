@@ -10,6 +10,7 @@ import {
   Plus,
   Printer,
 } from '@phosphor-icons/react';
+import logoPraxys from '../assets/logo-praxys.svg';
 import { HelixButton } from '../components/helix/helix-button';
 import {
   HelixBadge,
@@ -17,7 +18,6 @@ import {
   HelixDetailField,
   HelixFileCard,
   HelixIconButton,
-  HelixInfoPill,
   HelixScrollArea,
   HelixSelectField,
   HelixSideNavItem,
@@ -95,6 +95,7 @@ export function GestionRecetas() {
         style={{
           display: 'flex',
           alignItems: 'center',
+          gap: HelixSpacing.paddingComponentLg,
           height: topNavHeight,
           paddingLeft: HelixSpacing.paddingComponentLg,
           paddingRight: HelixSpacing.paddingComponentLg,
@@ -103,11 +104,22 @@ export function GestionRecetas() {
           backgroundColor: HelixColors.surfacePage,
           borderBottom: `${HelixBorderWidth.thin}px solid ${HelixColors.borderDefault}`,
           flexShrink: 0,
+          boxSizing: 'border-box',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: HelixSpacing.gapInlineSm }}>
-          <HelixIconButton icon={List} aria-label="Menú" />
-          <HelixInfoPill>Conexión Plus Farmacias</HelixInfoPill>
+        <HelixIconButton icon={List} aria-label="Menú" />
+
+        {/* Inner bar */}
+        <div style={{ display: 'flex', flex: 1, alignItems: 'center', gap: HelixSpacing.gapInlineSm, minWidth: 0 }}>
+          {/* Left: logo + badge */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: HelixSpacing.paddingComponentMd, flexShrink: 0 }}>
+            <img src={logoPraxys} alt="Praxys" style={{ height: 16, width: 'auto' }} />
+            <HelixBadge label="Conexión Plus Farmacias" status="info" icon />
+          </div>
+          {/* Middle spacer */}
+          <div style={{ width: 36, flexShrink: 0 }} />
+          {/* Right — slots not implementados */}
+          <div style={{ flex: 1 }} />
         </div>
       </header>
 
