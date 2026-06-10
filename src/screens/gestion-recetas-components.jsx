@@ -453,7 +453,7 @@ export function HelixTabs({ tabs, activeTab, onTabChange }) {
 
 // ─── Icon button (HelixButton subtle) ─────────────────────────────────────────
 
-export function HelixIconButton({ icon: Icon, 'aria-label': ariaLabel, onClick }) {
+export function HelixIconButton({ icon: Icon, 'aria-label': ariaLabel, onClick, style }) {
   return (
     <HelixButton
       variant="subtle"
@@ -467,6 +467,7 @@ export function HelixIconButton({ icon: Icon, 'aria-label': ariaLabel, onClick }
         paddingLeft: HelixSpacing.paddingComponentSm,
         paddingRight: HelixSpacing.paddingComponentSm,
         border: '1px solid transparent',
+        ...style,
       }}
       leftIcon={(p) => <Icon {...p} />}
     >

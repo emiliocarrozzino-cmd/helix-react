@@ -106,7 +106,7 @@ export function GestionRecetas() {
           boxSizing: 'border-box',
         }}
       >
-        <HelixIconButton icon={List} aria-label="Menú" />
+        <HelixIconButton icon={List} aria-label="Menú" style={{ backgroundColor: 'transparent' }} />
 
         {/* Inner bar */}
         <div style={{ display: 'flex', flex: 1, alignItems: 'center', gap: HelixSpacing.gapInlineSm, minWidth: 0 }}>
