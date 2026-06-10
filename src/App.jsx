@@ -1,7 +1,7 @@
-import { ButtonDemo } from './screens/button-demo';
+import { GestionRecetas } from './screens/gestion-recetas';
 
 function App() {
-  return <ButtonDemo />;
+  return <GestionRecetas />;
 }
 
 export default App;

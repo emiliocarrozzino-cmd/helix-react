@@ -79,8 +79,9 @@ const GAP       = { sm: HelixSpacing.gapInlineXs,        md: HelixSpacing.gapInl
 export function HelixButton({
   variant = 'primary',
   size    = 'md',
-  disabled  = false,
-  loading   = false,
+  disabled    = false,
+  loading     = false,
+  noFocusRing = false,
   leftIcon  = null,
   rightIcon = null,
   children,
@@ -121,7 +122,7 @@ export function HelixButton({
   }
 
   // ── Focus ring ────────────────────────────────────────────────────────────
-  const focusOutline = focused && isInteractive
+  const focusOutline = focused && isInteractive && !noFocusRing
     ? `0 0 0 2px ${HelixColors.borderFocusPrimary}`
     : 'none';
 
