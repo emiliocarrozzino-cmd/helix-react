@@ -9,20 +9,20 @@ import {
   Check,
 } from '@phosphor-icons/react';
 
-const VARIANTS = ['primary', 'destructive', 'featured', 'subtle'];
+const VARIANTS = ['primary', 'destructive', 'secondary', 'subtle'];
 const SIZES    = ['sm', 'md', 'lg'];
 
 const VARIANT_LABELS = {
   primary:     'Primary',
   destructive: 'Destructive',
-  featured:    'Featured',
+  secondary:   'Secondary',
   subtle:      'Subtle',
 };
 
 const VARIANT_ICONS = {
   primary:     Plus,
   destructive: Trash,
-  featured:    Star,
+  secondary:   Star,
   subtle:      DownloadSimple,
 };
 
@@ -220,7 +220,7 @@ export function ButtonDemo() {
           >
             Exportar
           </HelixButton>
-          <HelixButton variant="featured" size="sm" leftIcon={(p) => <Star {...p} />}>
+          <HelixButton variant="secondary" size="sm" leftIcon={(p) => <Star {...p} />}>
             Premium
           </HelixButton>
         </div>

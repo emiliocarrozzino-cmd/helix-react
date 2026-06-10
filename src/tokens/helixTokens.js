@@ -7,24 +7,28 @@
 
 export const HelixColors = {
   // action/primary
-  actionPrimaryDefault:  '#157BB5',
-  actionPrimaryHover:    '#006395',
-  actionPrimaryPressed:  '#004C74',
-  actionPrimaryDisabled: '#AAD7FA',
-  actionPrimaryOn:       '#FFFFFF',
+  actionPrimaryDefault:        '#157BB5',
+  actionPrimaryBorderGradient: 'linear-gradient(270deg, #157BB5 0%, #4297D0 50.48%, #157BB5 100%)',
+  actionPrimaryHover:          '#006395',
+  actionPrimaryPressed:        '#004C74',
+  actionPrimaryDisabled:       '#AAD7FA',
+  actionPrimaryOn:             '#FFFFFF',
 
   // action/destructive
-  actionDestructiveDefault:  '#DC2837',
-  actionDestructiveHover:    '#BB0023',
-  actionDestructivePressed:  '#94001A',
-  actionDestructiveDisabled: '#FFBEBA',
-  actionDestructiveOn:       '#FFFFFF',
+  actionDestructiveDefault:        '#DC2837',
+  actionDestructiveBorderGradient: 'linear-gradient(270deg, #DC2837 0%, #F14C50 50.48%, #DC2837 100%)',
+  actionDestructiveHover:          '#BB0023',
+  actionDestructivePressed:        '#94001A',
+  actionDestructiveDisabled:       '#FFBEBA',
+  actionDestructiveOn:             '#FFFFFF',
 
-  // action/featured
-  actionFeaturedDefault:  '#642DC3',
-  actionFeaturedHover:    '#5001A8',
-  actionFeaturedPressed:  '#38007A',
-  actionFeaturedOn:       '#FFFFFF',
+  // action/secondary
+  actionSecondaryDefault:        '#3FA876',
+  actionSecondaryBorderGradient: 'linear-gradient(270deg, #43A575 0%, #77C49B 50.48%, #43A575 100%)',
+  actionSecondaryHover:          '#00764A',
+  actionSecondaryPressed:        '#006D2D',
+  actionSecondaryDisabled:       '#B8E8D0',
+  actionSecondaryOn:             '#FFFFFF',
 
   // action/subtle
   actionSubtleDefault:  '#FFFFFF',
@@ -272,6 +276,7 @@ export const HelixPrimitives = {
   // red scale (destructive)
   red50:  '#FFF2F0',
   red100: '#FFBEBA',
+  red400: '#F14C50',
   red500: '#DC2837',
   red700: '#BB0023',
   red800: '#94001A',
